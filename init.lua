@@ -115,7 +115,7 @@ vim.opt.showmode = false
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
+  vim.opt.clipboard = ''
 end)
 
 -- Enable break indent
@@ -156,6 +156,16 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Folding with syntax
+vim.opt.foldenable = true
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+
+-- Start every buffer with *all* folds closed
+vim.opt.foldlevelstart = 99 -- 0 = close every fold on load
+vim.opt.foldlevel = 99 -- Let you open as many levels as you want later
+vim.opt.foldenable = true -- Make sure folding itself is on
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -188,6 +198,10 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Copying and pasting keymaps for system clipboard
+vim.keymap.set({ 'v', 'n' }, '<C-c>', '"+y', { desc = 'Copy to system clipboard' })
+vim.keymap.set({ 'v', 'n', 'i' }, '<C-v>', '<Esc>"+p', { desc = 'Paste from system clipboard' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
