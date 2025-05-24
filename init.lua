@@ -911,7 +911,11 @@ require('lazy').setup({
     'catppuccin/nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
-      vim.cmd.colorscheme 'catppuccin-latte'
+      if os.getenv 'TERM' == 'linux' then
+        vim.cmd.colorscheme 'default'
+      else
+        vim.cmd.colorscheme 'catppuccin-latte'
+      end
       -- You can configure highlights by doing something like:
       --vim.cmd.hi 'Comment gui=none'
     end,
